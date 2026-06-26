@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Laporan Keuangan Masjid Baiturrahman Panjunan</title>
 <script src="data.js"></script>
 <style>
@@ -14,7 +14,7 @@
   --text:#1a1a1a;--text2:#555;--text3:#999;
   --red:#9B1C1C;--red-pale:#FFEBEE;
 }
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--krem);color:var(--text);min-height:100vh;padding-bottom:40px}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--krem);color:var(--text);min-height:100vh;padding-bottom:40px;width:100%;overflow-x:hidden}
 
 /* HEADER */
 .header{background:var(--hijau);color:#FAF7F0;padding:20px 16px 24px;text-align:center;position:relative;overflow:hidden}
@@ -24,10 +24,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--krem);color:var(--
 .header-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:5px 16px;font-size:12px;font-weight:600}
 
 /* CONTAINER */
-.container{max-width:600px;margin:0 auto;padding:0 14px}
+.container{max-width:600px;margin:0 auto;padding:0 14px;width:100%}
 
 /* FILTER BAR */
-.filter-section{background:#fff;border-radius:12px;border:1px solid var(--border);padding:16px;margin:-16px 14px 16px;position:relative;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+.filter-section{background:#fff;border-radius:12px;border:1px solid var(--border);padding:16px;margin:-16px 0 16px;position:relative;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
 .filter-title{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px}
 .filter-row{display:flex;gap:8px;flex-wrap:wrap}
 select.flt{flex:1;min-width:100px;font-size:13px;padding:9px 10px;border:1.5px solid var(--border);border-radius:8px;background:#FAF7F0;color:var(--text);font-family:inherit;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23999' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:26px}
@@ -95,6 +95,15 @@ select.flt:focus{outline:2px solid var(--hijau);border-color:var(--hijau)}
   .sum-card.full{grid-column:auto}
   .filter-row{flex-direction:column}
   select.flt{min-width:unset}
+  .sum-val{font-size:16px}
+  .sum-val.big{font-size:20px}
+  .header-masjid{font-size:16px}
+}
+@media(min-width:601px){
+  body{padding:0 0 40px}
+  .header{padding:28px 20px 32px}
+  .header-masjid{font-size:22px}
+  .filter-section{margin:-20px 0 20px}
 }
 </style>
 </head>
