@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan Keuangan Masjid Baiturrahman Panjunan</title>
+<script src="data.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --hijau:#1B4332;--hijau-mid:#2D6A4F;--hijau-light:#40916C;--hijau-pale:#D8F3DC;
+  --emas:#C6952A;--emas-pale:#FFF8E1;
+  --krem:#FAF7F0;--border:#E0D8CC;
+  --text:#1a1a1a;--text2:#555;--text3:#999;
+  --red:#9B1C1C;--red-pale:#FFEBEE;
+}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--krem);color:var(--text);min-height:100vh;padding-bottom:40px}
+
+/* HEADER */
+.header{background:var(--hijau);color:#FAF7F0;padding:20px 16px 24px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'🕌';position:absolute;font-size:120px;opacity:0.06;top:-10px;right:-10px}
+.header-masjid{font-size:18px;font-weight:800;letter-spacing:0.3px;margin-bottom:4px}
+.header-alamat{font-size:12px;opacity:0.7;margin-bottom:12px}
+.header-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:5px 16px;font-size:12px;font-weight:600}
+
+/* CONTAINER */
+.container{max-width:600px;margin:0 auto;padding:0 14px}
+
+/* FILTER BAR */
+.filter-section{background:#fff;border-radius:12px;border:1px solid var(--border);padding:16px;margin:-16px 14px 16px;position:relative;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+.filter-title{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap}
+select.flt{flex:1;min-width:100px;font-size:13px;padding:9px 10px;border:1.5px solid var(--border);border-radius:8px;background:#FAF7F0;color:var(--text);font-family:inherit;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23999' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:26px}
+select.flt:focus{outline:2px solid var(--hijau);border-color:var(--hijau)}
+.btn-lihat{width:100%;margin-top:10px;background:var(--hijau);color:#FAF7F0;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:0.3px;transition:all 0.15s}
+.btn-lihat:hover{background:var(--hijau-mid)}
+.btn-lihat:active{transform:scale(0.98)}
+
+/* SUMMARY CARDS */
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.sum-card{background:#fff;border-radius:12px;border:1px solid var(--border);padding:14px 16px}
+.sum-card.full{grid-column:1/-1}
+.sum-label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.sum-val{font-size:20px;font-weight:800;line-height:1}
+.sum-val.green{color:var(--hijau)}
+.sum-val.red{color:var(--red)}
+.sum-val.gold{color:var(--emas)}
+.sum-val.big{font-size:24px}
+.sum-sub{font-size:11px;color:var(--text3);margin-top:4px}
+
+/* SECTION HEADER */
+.sect-head{font-size:13px;font-weight:700;color:var(--hijau);margin-bottom:10px;display:flex;align-items:center;gap:6px;padding-bottom:8px;border-bottom:2px solid var(--emas)}
+
+/* TRANSACTION LIST */
+.trx-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.trx-item{background:#fff;border-radius:10px;border:1px solid var(--border);padding:12px 14px;display:flex;align-items:center;gap:12px}
+.trx-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.trx-icon.masuk{background:var(--hijau-pale)}
+.trx-icon.keluar{background:var(--red-pale)}
+.trx-body{flex:1;min-width:0}
+.trx-ket{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trx-tgl{font-size:11px;color:var(--text3);margin-top:2px}
+.trx-right{text-align:right;flex-shrink:0}
+.trx-amt{font-size:13px;font-weight:700}
+.trx-amt.masuk{color:var(--hijau)}
+.trx-amt.keluar{color:var(--red)}
+.trx-saldo{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* SALDO AWAL */
+.saldo-awal-row{background:var(--emas-pale);border:1px solid #E8C94A;border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.saldo-awal-label{font-size:12px;font-weight:700;color:#7B5800}
+.saldo-awal-val{font-size:14px;font-weight:800;color:var(--emas)}
+
+/* EMPTY / ERROR */
+.empty-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:40px 20px;text-align:center;color:var(--text3)}
+.empty-icon{font-size:40px;margin-bottom:10px}
+.empty-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text2)}
+.empty-sub{font-size:12px;line-height:1.6}
+
+/* ERROR */
+.err-box{background:var(--red-pale);border:1px solid #F5C6C6;border-radius:12px;padding:20px;margin:14px 0;color:var(--red);font-size:13px;line-height:1.6;text-align:center}
+
+/* FOOTER */
+.footer{text-align:center;padding:20px 14px 10px;font-size:11px;color:var(--text3);line-height:1.8}
+.footer strong{color:var(--hijau)}
+
+/* PERIODE CHIP */
+.periode-chip{display:inline-flex;align-items:center;gap:6px;background:var(--hijau-pale);color:var(--hijau);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;margin-bottom:14px}
+
+/* UPDATE INFO */
+.update-info{font-size:11px;color:var(--text3);background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+
+@media(max-width:400px){
+  .summary-grid{grid-template-columns:1fr}
+  .sum-card.full{grid-column:auto}
+  .filter-row{flex-direction:column}
+  select.flt{min-width:unset}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-masjid" id="hdr-masjid">Masjid Baiturrahman Panjunan</div>
+  <div class="header-alamat" id="hdr-alamat">Tuban</div>
+  <div class="header-badge">📋 Laporan Keuangan Jamaah</div>
+</div>
+
+<div class="container">
+
+  <!-- FILTER CARD (floats over header) -->
+  <div class="filter-section">
+    <div class="filter-title">🔎 Pilih Periode Laporan</div>
+    <div class="filter-row">
+      <select class="flt" id="f-bln">
+        <option value="">Semua Bulan</option>
+        <option>Januari</option><option>Februari</option><option>Maret</option><option>April</option>
+        <option>Mei</option><option>Juni</option><option>Juli</option><option>Agustus</option>
+        <option>September</option><option>Oktober</option><option>November</option><option>Desember</option>
+      </select>
+      <select class="flt" id="f-mgg">
+        <option value="">Semua Minggu</option>
+        <option value="1">Minggu 1</option>
+        <option value="2">Minggu 2</option>
+        <option value="3">Minggu 3</option>
+        <option value="4">Minggu 4</option>
+        <option value="5">Minggu 5</option>
+      </select>
+      <select class="flt" id="f-thn">
+        <option value="">Semua Tahun</option>
+      </select>
+    </div>
+    <button class="btn-lihat" onclick="tampilkan()">Tampilkan Laporan</button>
+  </div>
+
+  <!-- CONTENT AREA -->
+  <div id="content-area"></div>
+
+  <div class="footer">
+    Laporan ini dibuat oleh pengurus <strong id="ft-masjid">Masjid Baiturrahman Panjunan</strong><br>
+    untuk keterbukaan informasi kepada jamaah.<br>
+    <span id="ft-update"></span>
+  </div>
+</div>
+
+<script>
+const BULAN_LIST = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const fmtRp = n => 'Rp ' + Math.round(n||0).toLocaleString('id-ID');
+const fmtNum = n => Math.round(n||0).toLocaleString('id-ID');
+const fmtTgl = s => {
+  if(!s) return '';
+  const d = new Date(s);
+  return d.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+};
+
+function init() {
+  // Check data.js loaded
+  if(typeof LAPORAN_DATA === 'undefined') {
+    document.getElementById('content-area').innerHTML = `
+      <div class="err-box">
+        ⚠️ File <b>data.js</b> belum tersedia atau belum diupload.<br>
+        Halaman ini membutuhkan file <b>data.js</b> di folder yang sama.
+      </div>`;
+    return;
+  }
+
+  const d = LAPORAN_DATA;
+
+  // Fill header
+  if(d.masjid) document.getElementById('hdr-masjid').textContent = d.masjid;
+  if(d.alamat) document.getElementById('hdr-alamat').textContent = d.alamat;
+  if(d.masjid) document.getElementById('ft-masjid').textContent = d.masjid;
+  if(d.diperbarui) document.getElementById('ft-update').textContent = 'Terakhir diperbarui: ' + d.diperbarui;
+
+  // Populate tahun dropdown from data
+  const years = [...new Set(d.transaksi.map(t => new Date(t.tanggal).getFullYear()))].sort().reverse();
+  const selThn = document.getElementById('f-thn');
+  years.forEach(y => {
+    const opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    selThn.appendChild(opt);
+  });
+
+  // Set filter dari data.js jika ada default periode
+  if(d.bulan) document.getElementById('f-bln').value = d.bulan;
+  if(d.minggu) document.getElementById('f-mgg').value = d.minggu;
+  if(d.tahun) document.getElementById('f-thn').value = d.tahun;
+
+  // Auto tampilkan
+  tampilkan();
+}
+
+function tampilkan() {
+  const d = typeof LAPORAN_DATA !== 'undefined' ? LAPORAN_DATA : null;
+  if(!d) return;
+
+  const selBln = document.getElementById('f-bln').value;
+  const selMgg = document.getElementById('f-mgg').value;
+  const selThn = document.getElementById('f-thn').value;
+
+  // Filter transaksi
+  const rows = d.transaksi.filter(r => {
+    const tgl = new Date(r.tanggal);
+    const rBln = BULAN_LIST[tgl.getMonth()];
+    const rThn = tgl.getFullYear().toString();
+    // Gunakan field minggu dari data (sudah benar dari app utama)
+    // Fallback ke perhitungan kalender jika data lama tidak punya field minggu
+    const rMgg = r.minggu
+      ? r.minggu.toString()
+      : Math.min(5, Math.ceil(tgl.getDate() / 7)).toString();
+    return (
+      (!selBln || rBln === selBln) &&
+      (!selMgg || rMgg === selMgg) &&
+      (!selThn || rThn === selThn)
+    );
+  });
+
+  const el = document.getElementById('content-area');
+
+  if(!rows.length) {
+    el.innerHTML = `
+      <div class="empty-box">
+        <div class="empty-icon">📭</div>
+        <div class="empty-title">Tidak ada data</div>
+        <div class="empty-sub">Belum ada transaksi untuk periode yang dipilih.<br>Coba pilih bulan atau tahun lain.</div>
+      </div>`;
+    return;
+  }
+
+  // Hitung saldo berjalan untuk baris yang difilter
+  // Saldo awal = saldo transaksi pertama dikurangi net transaksi pertama
+  const firstRow = rows[0];
+  const saldoAwal = firstRow.saldo - (firstRow.masuk||0) + (firstRow.keluar||0);
+  const totalMasuk = rows.reduce((s,r) => s+(r.masuk||0), 0);
+  const totalKeluar = rows.reduce((s,r) => s+(r.keluar||0), 0);
+  const saldoAkhir = rows[rows.length-1].saldo;
+
+  // Build periode label
+  const periodeLabel = [
+    selMgg ? 'Minggu '+selMgg : '',
+    selBln || '',
+    selThn || ''
+  ].filter(Boolean).join(' ') || 'Semua Periode';
+
+  let html = '';
+
+  // Periode chip
+  html += `<div style="margin-top:14px"><div class="periode-chip">📅 ${periodeLabel}</div></div>`;
+
+  // Update info
+  if(d.diperbarui) {
+    html += `<div class="update-info">🕒 Data diperbarui: <b>${d.diperbarui}</b></div>`;
+  }
+
+  // Summary cards
+  html += `
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-label">💚 Total Masuk</div>
+      <div class="sum-val green">${fmtRp(totalMasuk)}</div>
+      <div class="sum-sub">${rows.filter(r=>r.masuk).length} transaksi</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-label">❤️ Total Keluar</div>
+      <div class="sum-val red">${fmtRp(totalKeluar)}</div>
+      <div class="sum-sub">${rows.filter(r=>r.keluar).length} transaksi</div>
+    </div>
+    <div class="sum-card full">
+      <div class="sum-label">⭐ Saldo Akhir Periode</div>
+      <div class="sum-val gold big">${fmtRp(saldoAkhir)}</div>
+      <div class="sum-sub">Saldo Kas Sebelumnya: ${fmtRp(saldoAwal)}</div>
+    </div>
+  </div>`;
+
+  // Transaction list
+  html += `
+  <div class="sect-head">📄 Rincian Transaksi <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">${rows.length} transaksi</span></div>
+  <div class="trx-list">
+    <div class="saldo-awal-row">
+      <div class="saldo-awal-label">💰 Saldo Kas Sebelumnya</div>
+      <div class="saldo-awal-val">${fmtRp(saldoAwal)}</div>
+    </div>`;
+
+  rows.forEach(r => {
+    const isMasuk = (r.masuk||0) > 0;
+    const amt = isMasuk ? r.masuk : r.keluar;
+    html += `
+    <div class="trx-item">
+      <div class="trx-icon ${isMasuk?'masuk':'keluar'}">${isMasuk?'➕':'➖'}</div>
+      <div class="trx-body">
+        <div class="trx-ket">${r.keterangan}</div>
+        <div class="trx-tgl">📅 ${fmtTgl(r.tanggal)}</div>
+      </div>
+      <div class="trx-right">
+        <div class="trx-amt ${isMasuk?'masuk':'keluar'}">${isMasuk?'+':'-'}${fmtNum(amt)}</div>
+        <div class="trx-saldo">Saldo: ${fmtNum(r.saldo)}</div>
+      </div>
+    </div>`;
+  });
+
+  html += `</div>`; // end trx-list
+
+  // Closing summary bar
+  html += `
+  <div style="background:var(--hijau);color:#FAF7F0;border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+    <div style="font-size:12px;opacity:0.8">Saldo Akhir Periode</div>
+    <div style="font-size:22px;font-weight:800">${fmtRp(saldoAkhir)}</div>
+  </div>`;
+
+  el.innerHTML = html;
+}
+
+// Run on load
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
