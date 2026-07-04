@@ -1,5 +1,5 @@
 // Data laporan keuangan Masjid Baiturrahman Panjunan
-// Dibuat otomatis pada: 4 Juli 2026 pukul 09.25
+// Dibuat otomatis pada: 4 Juli 2026 pukul 14.10
 // Jangan edit file ini secara manual — generate ulang dari aplikasi
 
 const LAPORAN_DATA = {
@@ -9,19 +9,27 @@ const LAPORAN_DATA = {
   "bulan": "Juni",
   "minggu": "5",
   "tahun": "2026",
-  "diperbarui": "4 Juli 2026 pukul 09.25",
+  "diperbarui": "4 Juli 2026 pukul 14.10",
   "saldoAwal": 29079500,
   "totalMasuk": 6466000,
-  "totalKeluar": 5062500,
-  "saldoAkhir": 30483000,
+  "totalKeluar": 10192500,
+  "saldoAkhir": 25353000,
   "transaksi": [
+    {
+      "tanggal": "2026-06-28",
+      "minggu": 5,
+      "keterangan": "Pulsa Listrik",
+      "masuk": 0,
+      "keluar": 260000,
+      "saldo": 28819500
+    },
     {
       "tanggal": "2026-06-29",
       "minggu": 5,
       "keterangan": "Pembelian Kayu",
       "masuk": 0,
       "keluar": 450000,
-      "saldo": 28629500
+      "saldo": 28369500
     },
     {
       "tanggal": "2026-06-29",
@@ -29,7 +37,7 @@ const LAPORAN_DATA = {
       "keterangan": "Material Bangunan Untuk Dak",
       "masuk": 0,
       "keluar": 3882500,
-      "saldo": 24747000
+      "saldo": 24487000
     },
     {
       "tanggal": "2026-06-30",
@@ -37,7 +45,15 @@ const LAPORAN_DATA = {
       "keterangan": "Ongkos Bambu",
       "masuk": 0,
       "keluar": 200000,
-      "saldo": 24547000
+      "saldo": 24287000
+    },
+    {
+      "tanggal": "2026-06-30",
+      "minggu": 5,
+      "keterangan": "Konsumsi Rapat",
+      "masuk": 0,
+      "keluar": 170000,
+      "saldo": 24117000
     },
     {
       "tanggal": "2026-07-02",
@@ -45,7 +61,15 @@ const LAPORAN_DATA = {
       "keterangan": "Pembelian Lampu 2 Slot 10 Watt",
       "masuk": 0,
       "keluar": 530000,
-      "saldo": 24017000
+      "saldo": 23587000
+    },
+    {
+      "tanggal": "2026-07-02",
+      "minggu": 5,
+      "keterangan": "5 Kardus Air Mineral Club",
+      "masuk": 0,
+      "keluar": 200000,
+      "saldo": 23387000
     },
     {
       "tanggal": "2026-07-03",
@@ -53,7 +77,7 @@ const LAPORAN_DATA = {
       "keterangan": "Kotak Amal BOSPOM",
       "masuk": 5596000,
       "keluar": 0,
-      "saldo": 29613000
+      "saldo": 28983000
     },
     {
       "tanggal": "2026-07-03",
@@ -61,7 +85,15 @@ const LAPORAN_DATA = {
       "keterangan": "Kotak Amal Jumat",
       "masuk": 870000,
       "keluar": 0,
-      "saldo": 30483000
+      "saldo": 29853000
+    },
+    {
+      "tanggal": "2026-07-03",
+      "minggu": 5,
+      "keterangan": "Gaji Marbot 6 Bulan (Jul-Des)",
+      "masuk": 0,
+      "keluar": 4500000,
+      "saldo": 25353000
     }
   ]
 };
