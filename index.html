@@ -214,10 +214,18 @@ function tampilkan() {
   const isiLabel = [bagianMgg, bagianBln, bagianThn].filter(Boolean).join(' ');
   const periodeLabel = isiLabel ? '(' + isiLabel + ')' : 'Semua Periode';
 
+  // Rentang tanggal: dari transaksi pertama sampai terakhir dalam periode ini
+  const tglMulai = fmtTgl(firstRow.tanggal);
+  const tglSelesai = fmtTgl(rows[rows.length-1].tanggal);
+  const rentangTanggal = tglMulai === tglSelesai
+    ? tglMulai
+    : `${tglMulai} s/d ${tglSelesai}`;
+
   let html = '';
 
   // Periode chip
   html += `<div style="margin-top:14px"><div class="periode-chip">📅 ${periodeLabel}</div></div>`;
+  html += `<div style="font-size:12px;color:var(--text2);font-weight:600;margin:-8px 0 14px 2px">🗓️ Dari tanggal ${rentangTanggal}</div>`;
 
   // Update info
   if(d.diperbarui) {
@@ -238,7 +246,7 @@ function tampilkan() {
       <div class="sum-sub">${rows.filter(r=>r.keluar).length} transaksi</div>
     </div>
     <div class="sum-card full">
-      <div class="sum-label">⭐ Saldo Akhir Periode</div>
+      <div class="sum-label">⭐ Saldo Kas Saat ini</div>
       <div class="sum-val gold big">${fmtRp(saldoAkhir)}</div>
       <div class="sum-sub">Saldo Kas Sebelumnya: ${fmtRp(saldoAwal)}</div>
     </div>
@@ -275,7 +283,7 @@ function tampilkan() {
   // Closing summary bar
   html += `
   <div style="background:var(--hijau);color:#FAF7F0;border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
-    <div style="font-size:12px;opacity:0.8">Saldo Akhir Periode</div>
+    <div style="font-size:12px;opacity:0.8">Saldo Kas Saat ini</div>
     <div style="font-size:22px;font-weight:800">${fmtRp(saldoAkhir)}</div>
   </div>`;
 
