@@ -1,91 +1,67 @@
 // Data laporan keuangan Masjid Baiturrahman Panjunan
-// Dibuat otomatis pada: 27 Juni 2026 pukul 10.19
+// Dibuat otomatis pada: 4 Juli 2026 pukul 09.25
 // Jangan edit file ini secara manual — generate ulang dari aplikasi
 
 const LAPORAN_DATA = {
   "masjid": "Takmir Masjid Baiturrahman Panjunan",
   "alamat": "Dsn. Panjuanan, Ds. Tasikmadu, Kec. Palang, Kab. Tuban",
-  "periode": "Minggu 4 Juni 2026",
+  "periode": "Minggu 5 Juni 2026",
   "bulan": "Juni",
-  "minggu": "4",
+  "minggu": "5",
   "tahun": "2026",
-  "diperbarui": "27 Juni 2026 pukul 10.19",
-  "saldoAwal": 29811500,
-  "totalMasuk": 3334000,
-  "totalKeluar": 4066000,
-  "saldoAkhir": 29079500,
+  "diperbarui": "4 Juli 2026 pukul 09.25",
+  "saldoAwal": 29079500,
+  "totalMasuk": 6466000,
+  "totalKeluar": 5062500,
+  "saldoAkhir": 30483000,
   "transaksi": [
     {
-      "tanggal": "2026-06-21",
-      "minggu": 4,
-      "keterangan": "Pembayaran Wifi",
+      "tanggal": "2026-06-29",
+      "minggu": 5,
+      "keterangan": "Pembelian Kayu",
       "masuk": 0,
-      "keluar": 150000,
-      "saldo": 29661500
+      "keluar": 450000,
+      "saldo": 28629500
     },
     {
-      "tanggal": "2026-06-23",
-      "minggu": 4,
-      "keterangan": "Pembelian Lampu LED 150 Watt",
+      "tanggal": "2026-06-29",
+      "minggu": 5,
+      "keterangan": "Material Bangunan Untuk Dak",
       "masuk": 0,
-      "keluar": 625000,
-      "saldo": 29036500
+      "keluar": 3882500,
+      "saldo": 24747000
     },
     {
-      "tanggal": "2026-06-25",
-      "minggu": 4,
-      "keterangan": "Konsumsi Ngaji",
+      "tanggal": "2026-06-30",
+      "minggu": 5,
+      "keterangan": "Ongkos Bambu",
       "masuk": 0,
-      "keluar": 120000,
-      "saldo": 28916500
+      "keluar": 200000,
+      "saldo": 24547000
     },
     {
-      "tanggal": "2026-06-25",
-      "minggu": 4,
-      "keterangan": "Pemasangan CCTV",
+      "tanggal": "2026-07-02",
+      "minggu": 5,
+      "keterangan": "Pembelian Lampu 2 Slot 10 Watt",
       "masuk": 0,
-      "keluar": 3100000,
-      "saldo": 25816500
+      "keluar": 530000,
+      "saldo": 24017000
     },
     {
-      "tanggal": "2026-06-25",
-      "minggu": 4,
-      "keterangan": "Rokok Teknisi Wifi",
-      "masuk": 0,
-      "keluar": 27000,
-      "saldo": 25789500
-    },
-    {
-      "tanggal": "2026-06-25",
-      "minggu": 4,
-      "keterangan": "Infak Malam Jumat Wage",
-      "masuk": 2380000,
+      "tanggal": "2026-07-03",
+      "minggu": 5,
+      "keterangan": "Kotak Amal BOSPOM",
+      "masuk": 5596000,
       "keluar": 0,
-      "saldo": 28169500
+      "saldo": 29613000
     },
     {
-      "tanggal": "2026-06-25",
-      "minggu": 4,
-      "keterangan": "Konsumsi Teknisi Wifi",
-      "masuk": 0,
-      "keluar": 20000,
-      "saldo": 28149500
-    },
-    {
-      "tanggal": "2026-06-25",
-      "minggu": 4,
-      "keterangan": "1 Dus Air Kemasan",
-      "masuk": 0,
-      "keluar": 24000,
-      "saldo": 28125500
-    },
-    {
-      "tanggal": "2026-06-26",
-      "minggu": 4,
-      "keterangan": "Kotak Amal Jum'at",
-      "masuk": 954000,
+      "tanggal": "2026-07-03",
+      "minggu": 5,
+      "keterangan": "Kotak Amal Jumat",
+      "masuk": 870000,
       "keluar": 0,
-      "saldo": 29079500
+      "saldo": 30483000
     }
   ]
 };
