@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Laporan Keuangan Masjid Baiturrahman Panjunan</title>
-<script src="data.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -291,7 +290,23 @@ function tampilkan() {
 }
 
 // Run on load
-window.addEventListener('DOMContentLoaded', init);
+// Muat data.js secara dinamis dengan cache-busting (?t=timestamp)
+// supaya browser tidak menyimpan versi lama saat data.js diupdate di GitHub.
+function loadDataJs() {
+  const script = document.createElement('script');
+  script.src = 'data.js?t=' + Date.now();
+  script.onload = init;
+  script.onerror = function() {
+    document.getElementById('content-area').innerHTML = `
+      <div class="err-box">
+        ⚠️ File <b>data.js</b> belum tersedia atau belum diupload.<br>
+        Halaman ini membutuhkan file <b>data.js</b> di folder yang sama.
+      </div>`;
+  };
+  document.body.appendChild(script);
+}
+
+window.addEventListener('DOMContentLoaded', loadDataJs);
 </script>
 </body>
 </html>
