@@ -169,22 +169,12 @@ function tampilkan() {
   const selMgg = d.minggu ? d.minggu.toString() : '';
   const selThn = d.tahun ? d.tahun.toString() : '';
 
-  // Filter transaksi
-  const rows = d.transaksi.filter(r => {
-    const tgl = new Date(r.tanggal);
-    const rBln = BULAN_LIST[tgl.getMonth()];
-    const rThn = tgl.getFullYear().toString();
-    // Gunakan field minggu dari data (sudah benar dari app utama)
-    // Fallback ke perhitungan kalender jika data lama tidak punya field minggu
-    const rMgg = r.minggu
-      ? r.minggu.toString()
-      : Math.min(5, Math.ceil(tgl.getDate() / 7)).toString();
-    return (
-      (!selBln || rBln === selBln) &&
-      (!selMgg || rMgg === selMgg) &&
-      (!selThn || rThn === selThn)
-    );
-  });
+  // data.js sudah di-generate khusus untuk 1 periode laporan oleh webapp,
+  // jadi semua transaksi di dalamnya dipakai apa adanya (TIDAK difilter ulang
+  // berdasarkan bulan kalender tiap tanggal). Ini penting karena satu periode
+  // "minggu" bisa saja melintasi 2 bulan (mis. akhir Juni s/d awal Juli),
+  // dan menyaring ulang per bulan kalender akan salah membuang transaksi.
+  const rows = d.transaksi;
 
   const el = document.getElementById('content-area');
 
@@ -198,13 +188,13 @@ function tampilkan() {
     return;
   }
 
-  // Hitung saldo berjalan untuk baris yang difilter
-  // Saldo awal = saldo transaksi pertama dikurangi net transaksi pertama
+  // Pakai angka yang sudah dihitung oleh webapp sistem manajemen (di data.js),
+  // bukan dihitung ulang di halaman ini, supaya selalu sama persis dengan sumbernya.
   const firstRow = rows[0];
-  const saldoAwal = firstRow.saldo - (firstRow.masuk||0) + (firstRow.keluar||0);
-  const totalMasuk = rows.reduce((s,r) => s+(r.masuk||0), 0);
-  const totalKeluar = rows.reduce((s,r) => s+(r.keluar||0), 0);
-  const saldoAkhir = rows[rows.length-1].saldo;
+  const saldoAwal = (typeof d.saldoAwal === 'number') ? d.saldoAwal : (firstRow.saldo - (firstRow.masuk||0) + (firstRow.keluar||0));
+  const totalMasuk = (typeof d.totalMasuk === 'number') ? d.totalMasuk : rows.reduce((s,r) => s+(r.masuk||0), 0);
+  const totalKeluar = (typeof d.totalKeluar === 'number') ? d.totalKeluar : rows.reduce((s,r) => s+(r.keluar||0), 0);
+  const saldoAkhir = (typeof d.saldoAkhir === 'number') ? d.saldoAkhir : rows[rows.length-1].saldo;
 
   // Build periode label dengan format: (minggu ke-X bulan Y Tahun Z)
   const bagianMgg = selMgg ? 'minggu ke-'+selMgg : '';
