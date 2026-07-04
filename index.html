@@ -118,33 +118,8 @@ select.flt:focus{outline:2px solid var(--hijau);border-color:var(--hijau)}
 
 <div class="container">
 
-  <!-- FILTER CARD (floats over header) -->
-  <div class="filter-section">
-    <div class="filter-title">🔎 Pilih Periode Laporan</div>
-    <div class="filter-row">
-      <select class="flt" id="f-bln">
-        <option value="">Semua Bulan</option>
-        <option>Januari</option><option>Februari</option><option>Maret</option><option>April</option>
-        <option>Mei</option><option>Juni</option><option>Juli</option><option>Agustus</option>
-        <option>September</option><option>Oktober</option><option>November</option><option>Desember</option>
-      </select>
-      <select class="flt" id="f-mgg">
-        <option value="">Semua Minggu</option>
-        <option value="1">Minggu 1</option>
-        <option value="2">Minggu 2</option>
-        <option value="3">Minggu 3</option>
-        <option value="4">Minggu 4</option>
-        <option value="5">Minggu 5</option>
-      </select>
-      <select class="flt" id="f-thn">
-        <option value="">Semua Tahun</option>
-      </select>
-    </div>
-    <button class="btn-lihat" onclick="tampilkan()">Tampilkan Laporan</button>
-  </div>
-
   <!-- CONTENT AREA -->
-  <div id="content-area"></div>
+  <div id="content-area" style="padding-top:16px"></div>
 
   <div class="footer">
     Laporan ini dibuat oleh pengurus <strong id="ft-masjid">Masjid Baiturrahman Panjunan</strong><br>
@@ -182,21 +157,7 @@ function init() {
   if(d.masjid) document.getElementById('ft-masjid').textContent = d.masjid;
   if(d.diperbarui) document.getElementById('ft-update').textContent = 'Terakhir diperbarui: ' + d.diperbarui;
 
-  // Populate tahun dropdown from data
-  const years = [...new Set(d.transaksi.map(t => new Date(t.tanggal).getFullYear()))].sort().reverse();
-  const selThn = document.getElementById('f-thn');
-  years.forEach(y => {
-    const opt = document.createElement('option');
-    opt.value = y; opt.textContent = y;
-    selThn.appendChild(opt);
-  });
-
-  // Set filter dari data.js jika ada default periode
-  if(d.bulan) document.getElementById('f-bln').value = d.bulan;
-  if(d.minggu) document.getElementById('f-mgg').value = d.minggu;
-  if(d.tahun) document.getElementById('f-thn').value = d.tahun;
-
-  // Auto tampilkan
+  // Auto tampilkan (periode ditentukan otomatis dari data.js, jamaah tidak bisa memilih)
   tampilkan();
 }
 
@@ -204,9 +165,10 @@ function tampilkan() {
   const d = typeof LAPORAN_DATA !== 'undefined' ? LAPORAN_DATA : null;
   if(!d) return;
 
-  const selBln = document.getElementById('f-bln').value;
-  const selMgg = document.getElementById('f-mgg').value;
-  const selThn = document.getElementById('f-thn').value;
+  // Periode diambil langsung dari data.js (jamaah tidak bisa memilih)
+  const selBln = d.bulan || '';
+  const selMgg = d.minggu ? d.minggu.toString() : '';
+  const selThn = d.tahun ? d.tahun.toString() : '';
 
   // Filter transaksi
   const rows = d.transaksi.filter(r => {
@@ -232,7 +194,7 @@ function tampilkan() {
       <div class="empty-box">
         <div class="empty-icon">📭</div>
         <div class="empty-title">Tidak ada data</div>
-        <div class="empty-sub">Belum ada transaksi untuk periode yang dipilih.<br>Coba pilih bulan atau tahun lain.</div>
+        <div class="empty-sub">Belum ada transaksi untuk periode laporan ini.</div>
       </div>`;
     return;
   }
@@ -245,12 +207,12 @@ function tampilkan() {
   const totalKeluar = rows.reduce((s,r) => s+(r.keluar||0), 0);
   const saldoAkhir = rows[rows.length-1].saldo;
 
-  // Build periode label
-  const periodeLabel = [
-    selMgg ? 'Minggu '+selMgg : '',
-    selBln || '',
-    selThn || ''
-  ].filter(Boolean).join(' ') || 'Semua Periode';
+  // Build periode label dengan format: (minggu ke-X bulan Y Tahun Z)
+  const bagianMgg = selMgg ? 'minggu ke-'+selMgg : '';
+  const bagianBln = selBln ? 'bulan '+selBln : '';
+  const bagianThn = selThn ? 'Tahun '+selThn : '';
+  const isiLabel = [bagianMgg, bagianBln, bagianThn].filter(Boolean).join(' ');
+  const periodeLabel = isiLabel ? '(' + isiLabel + ')' : 'Semua Periode';
 
   let html = '';
 
