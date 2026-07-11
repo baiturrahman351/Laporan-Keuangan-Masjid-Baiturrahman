@@ -1,5 +1,5 @@
 // Data laporan keuangan Masjid Baiturrahman Panjunan
-// Dibuat otomatis pada: 11 Juli 2026 pukul 19.32
+// Dibuat otomatis pada: 11 Juli 2026 pukul 20.41
 // Jangan edit file ini secara manual — generate ulang dari aplikasi
 
 const LAPORAN_DATA = {
@@ -11,7 +11,7 @@ const LAPORAN_DATA = {
   "bulan": "Juli",
   "minggu": "1",
   "tahun": "2026",
-  "diperbarui": "11 Juli 2026 pukul 19.32",
+  "diperbarui": "11 Juli 2026 pukul 20.41",
   "saldoAwal": 24318000,
   "totalMasuk": 1045000,
   "totalKeluar": 6203000,
@@ -84,7 +84,7 @@ const LAPORAN_DATA = {
     {
       "tanggal": "2026-07-11",
       "minggu": 1,
-      "keterangan": "Pembelian Kapi",
+      "keterangan": "Kopi Tukang",
       "masuk": 0,
       "keluar": 60000,
       "saldo": 19220000
